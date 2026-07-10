@@ -1,22 +1,27 @@
 import { useState } from "react";
+import { useAuth } from "../context/AuthContext.js";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const { register } = useAuth();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (username.length === 0);
-
-    const user = {
+    const userData = {
       username,
       email,
       password,
     };
 
+    const user = await register(userData);
+
     console.log(user);
+    navigate("/login");
   };
 
   const handleChange = (e) => {
@@ -59,6 +64,13 @@ const Register = () => {
         <button type="submit" className="bg-sky-500 w-full rounded-md py-2">
           Register
         </button>
+        <p>
+          Already have an account?{" "}
+          <Link className="text-sky-600" to="/login">
+            Sign in
+          </Link>{" "}
+          to continue
+        </p>
       </form>
     </div>
   );
