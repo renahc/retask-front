@@ -1,20 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext.js";
-import { loginUser, registerUser } from "../api/auth.js";
+import { loginUser, registerUser, verifySession } from "../api/auth.js";
 
 const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    if (localStorage.getItem("token")) return true;
-    return false;
-  });
-  const [token, setToken] = useState(() => {
-    return localStorage.getItem("token") || null;
-  });
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const [user, setUser] = useState(() => {
-    const savedUser = localStorage.getItem("user");
-    return savedUser ? JSON.parse(savedUser) : null;
-  });
+  useEffect(() => {
+    const initializeApp = async () => {
+      const userData = await verifySession();
+
+      if (!userData) {
+        setUser(null);
+        setIsAuthenticated(false);
+      }
+      setIsAuthenticated(true);
+
+      setUser(userData.user);
+      setIsLoading(false);
+    };
+
+    initializeApp();
+  }, []);
 
   const register = async (user) => {
     const userData = await registerUser(user);
@@ -25,24 +33,15 @@ const AuthProvider = ({ children }) => {
   const login = async (user) => {
     const userData = await loginUser(user);
 
-    setToken(userData.token);
     setUser(userData.user);
-
-    localStorage.setItem("token", userData.token);
-    localStorage.setItem("user", JSON.stringify(userData.user));
 
     setIsAuthenticated(true);
     return userData;
   };
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-  };
-
   return (
     <AuthContext.Provider
-      value={{ user, register, login, logout, token, isAuthenticated }}
+      value={{ user, register, login, isAuthenticated, isLoading }}
     >
       {children}
     </AuthContext.Provider>

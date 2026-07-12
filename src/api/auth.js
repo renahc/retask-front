@@ -6,6 +6,7 @@ export const registerUser = async (user) => {
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: "include",
     body: JSON.stringify(user),
   });
 
@@ -25,7 +26,24 @@ export const loginUser = async (user) => {
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: "include",
     body: JSON.stringify(user),
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(errorData);
+  }
+
+  const data = await res.json();
+
+  return data;
+};
+
+export const verifySession = async () => {
+  const res = await fetch(`${API_URL}/auth/me`, {
+    method: "GET",
+    credentials: "include",
   });
 
   if (!res.ok) {
