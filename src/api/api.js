@@ -11,7 +11,6 @@ export const registerUser = async (user) => {
 
   if (!res.ok) {
     const errorData = await res.json();
-    console.log(errorData);
     throw new Error(errorData);
   }
 
@@ -31,7 +30,6 @@ export const loginUser = async (user) => {
 
   if (!res.ok) {
     const errorData = await res.json();
-    console.log(errorData);
     throw new Error(errorData);
   }
 
