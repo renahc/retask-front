@@ -1,18 +1,37 @@
-# React + Vite
+# Retask | Quick Task Management App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Retask** is a streamlined application designed to help you create and manage tasks with maximum speed and efficiency. Straight to the point, with zero friction.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Tech Stack
 
-## React Compiler
+### Frontend
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- **Vite + React 19**: Lightning-fast build environment paired with the latest React features.
+- **React Router DOM**: Seamless and dynamic client-side routing.
+- **Tailwind CSS**: Utility-first CSS framework for a modern, highly responsive UI.
+- _And additional modern libraries..._
 
-Note: This will impact Vite dev & build performances.
+### Backend
 
-## Expanding the ESLint configuration
+- **Node.js & Express.js**: Robust and scalable server architecture.
+- **MongoDB**: Flexible NoSQL database for efficient data storage.
+- **Zod**: Strict schema declaration and payload validation.
+- **JWT (JSON Web Tokens)**: Secure session management and stateless authentication.
+- **Bcrypt**: Advanced hashing for encrypting sensitive user data.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 💡 Key Features
+
+- **Lightning Fast Entry**: Create tasks in seconds without unnecessary steps.
+- **Secure Authentication**: Fully protected routes and user data encryption.
+- **Minimalist UI**: Clean design focused entirely on productivity.
+
+---
+
+## 👤 Author
+
+**Renato Felipe Herrera Canales**  
+_Web Developer & Informatics Engineering Student_
