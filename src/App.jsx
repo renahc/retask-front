@@ -5,6 +5,7 @@ import Register from "./pages/Register.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import AuthProvider from "./provider/AuthProvider.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import TaskProvider from "./provider/TaskProvider.jsx";
 
 const App = () => {
   return (
@@ -16,7 +17,14 @@ const App = () => {
           <Route path="/register" element={<Register />} />
 
           <Route element={<ProtectedRoute />}>
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route
+              path="/dashboard"
+              element={
+                <TaskProvider>
+                  <Dashboard />
+                </TaskProvider>
+              }
+            />
           </Route>
         </Routes>
       </AuthProvider>

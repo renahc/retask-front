@@ -55,3 +55,22 @@ export const verifySession = async () => {
 
   return data;
 };
+
+export const logoutUser = async () => {
+  const res = await fetch(`${API_URL}/auth/logout`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(errorData);
+  }
+
+  const data = await res.json();
+
+  return data;
+};
