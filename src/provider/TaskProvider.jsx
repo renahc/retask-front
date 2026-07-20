@@ -1,5 +1,5 @@
 import { TaskContext } from "../context/TaskContext";
-import { getTasks, saveTask } from "../api/tasks.js";
+import { fetchDeleteTask, getTasks, saveTask } from "../api/tasks.js";
 import { useEffect, useState } from "react";
 
 const TaskProvider = ({ children }) => {
@@ -33,8 +33,18 @@ const TaskProvider = ({ children }) => {
     return saveData;
   };
 
+  const deleteTask = async (taskId) => {
+    const deleteData = await fetchDeleteTask(taskId);
+    const newData = initialTasks.filter((task) => task._id !== taskId);
+    setInitialTasks([...newData]);
+    setIsLoading(false);
+
+    return deleteData;
+  };
   return (
-    <TaskContext.Provider value={{ initialTasks, isLoading, createTask }}>
+    <TaskContext.Provider
+      value={{ initialTasks, isLoading, createTask, deleteTask }}
+    >
       {children}
     </TaskContext.Provider>
   );

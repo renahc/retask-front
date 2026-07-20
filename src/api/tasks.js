@@ -38,3 +38,42 @@ export const saveTask = async (task) => {
 
   return data;
 };
+
+export const fetchDeleteTask = async (taskId) => {
+  const res = await fetch(`${API_URL}/${taskId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(errorData);
+  }
+
+  const data = await res.json();
+
+  return data;
+};
+
+export const fetchUpdateTask = async (taskId, taskData) => {
+  const res = await fetch(`${API_URL}/${taskId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify(taskData),
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(errorData);
+  }
+
+  const data = await res.json();
+
+  return data;
+};
