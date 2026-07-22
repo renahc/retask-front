@@ -2,9 +2,10 @@ import { useTasks } from "../context/TaskContext";
 import { useAuth } from "../context/AuthContext";
 import Tasks from "../components/Tasks";
 import LogoutButton from "../components/LogoutButton";
+import InputCreateTask from "../components/InputCreateTask";
 
 const Dashboard = () => {
-  const { initialTasks, isLoading } = useTasks();
+  const { initialTasks, isLoading, createTask } = useTasks();
 
   const { logout } = useAuth();
 
@@ -24,6 +25,8 @@ const Dashboard = () => {
 
   return (
     <section>
+      <InputCreateTask createTask={createTask} />
+
       {!initialTasks || initialTasks.length === 0 ? (
         <div>No tasks found.</div>
       ) : (

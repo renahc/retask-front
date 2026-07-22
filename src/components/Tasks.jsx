@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useTasks } from "../context/TaskContext";
 
 const Tasks = ({ initialTasks }) => {
-  const { deleteTask } = useTasks();
+  const { deleteTask, updateTask } = useTasks();
   const [task, setTask] = useState({
     title: "",
     description: "",
@@ -18,28 +18,27 @@ const Tasks = ({ initialTasks }) => {
     }
   };
 
-  const handleBlur = (e) => {
+  const handleBlur = async (taskId, e) => {
     const { name, value } = e.target;
-    setTask({
-      ...task,
-      [name]: value,
-    });
+    if (!value.trim()) return; // ❌ No guardar si está vacío
+
+    await updateTask({ [name]: value }, taskId);
   };
 
   return (
-    <form className="my-5 px-4 space-y-5">
+    <form onSubmit={(e) => e.preventDefault()} className="my-5 px-4 space-y-5">
       {initialTasks.map((task, i) => (
         <ul key={i} className="flex justify-between max-w-md">
           <div className="">
             <input
-              onBlur={handleBlur}
+              onBlur={(e) => handleBlur(task._id, e)}
               className="font-bold text-xl"
               type="text"
               name="title"
               defaultValue={task.title}
             ></input>
             <input
-              onBlur={handleBlur}
+              onBlur={(e) => handleBlur(task._id, e)}
               type="text"
               name="description"
               defaultValue={task.description}
@@ -55,17 +54,6 @@ const Tasks = ({ initialTasks }) => {
           </div>
         </ul>
       ))}
-      <article className="flex max-w-md">
-        <div>
-          <input
-            onBlur={handleBlur}
-            className="font-bold text-xl"
-            type="text"
-            name="title"
-          ></input>
-          <input onBlur={handleBlur} type="text" name="description" />
-        </div>
-      </article>
     </form>
   );
 };

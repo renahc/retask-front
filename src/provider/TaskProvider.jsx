@@ -1,5 +1,10 @@
 import { TaskContext } from "../context/TaskContext";
-import { fetchDeleteTask, getTasks, saveTask } from "../api/tasks.js";
+import {
+  fetchDeleteTask,
+  fetchUpdateTask,
+  getTasks,
+  saveTask,
+} from "../api/tasks.js";
 import { useEffect, useState } from "react";
 
 const TaskProvider = ({ children }) => {
@@ -41,9 +46,20 @@ const TaskProvider = ({ children }) => {
 
     return deleteData;
   };
+
+  const updateTask = async (task, taskId) => {
+    const updateData = await fetchUpdateTask(taskId, task);
+    setInitialTasks(
+      initialTasks.map((t) => (t._id === taskId ? { ...t, ...task } : t)),
+    );
+    setIsLoading(false);
+
+    return updateData;
+  };
+
   return (
     <TaskContext.Provider
-      value={{ initialTasks, isLoading, createTask, deleteTask }}
+      value={{ initialTasks, isLoading, createTask, deleteTask, updateTask }}
     >
       {children}
     </TaskContext.Provider>
